@@ -1,16 +1,26 @@
-import { Link } from '@chakra-ui/react'
 import React, { FC } from 'react'
-import { Link as RoutersLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import styled from 'styled-components'
 
-interface Props {
+type Props = {
   readonly to: string
 }
 
 const RouterLink: FC<Props> = (props) => {
+  const SLink = styled.div`
+    &.active {
+      text-decoration: underline;
+      color: ${({ theme }) => theme.colors.primary};
+    }
+  `
+
+  const { to, children } = props
   return (
-    <Link as={RoutersLink} to={props.to}>
-      {props.children}
-    </Link>
+    <NavLink
+      className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+      to={to}>
+      <SLink>{children}</SLink>
+    </NavLink>
   )
 }
 

@@ -1,16 +1,18 @@
-import { ChakraProvider } from '@chakra-ui/react'
-import { BrowserRouter } from 'react-router-dom'
-import AppRouter from './components/AppRouter'
 import React from 'react'
-import theme from './lib/router/theme/theme'
+import { BrowserRouter } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+import AppRouter from './components/AppRouter'
+import GlobalStyles from './lib/theme/global'
+import { baseTheme } from './lib/theme/theme'
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
+    <ThemeProvider theme={baseTheme}>
       <BrowserRouter>
         <AppRouter />
       </BrowserRouter>
-    </ChakraProvider>
+      <GlobalStyles />
+    </ThemeProvider>
   )
 }
 
