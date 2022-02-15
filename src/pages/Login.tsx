@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC } from 'react'
+import MainLayouts from '../components/layouts/MainLayouts'
 
 const Login: FC = () => {
-  return <div>Login page</div>;
-};
+  return <MainLayouts>Login page</MainLayouts>
+}
 
-export default Login;
+export default Login

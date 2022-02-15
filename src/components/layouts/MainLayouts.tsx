@@ -1,5 +1,5 @@
+import { Container } from '@chakra-ui/react'
 import React, { FC } from 'react'
-import { Container } from '../../lib/theme/components/Container'
 import Navbar from '../Navbar'
 
 interface Props {
@@ -11,7 +11,7 @@ const MainLayouts: FC<Props> = ({ children, title }) => {
   return (
     <>
       <Navbar />
-      <Container>{children}</Container>
+      <Container maxW={'container.xl'}>{children}</Container>
     </>
   )
 }

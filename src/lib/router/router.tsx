@@ -3,6 +3,7 @@ import React from 'react'
 import Login from '../../pages/Login'
 import Create from '../../pages/Create'
 import Profile from '../../pages/Profile'
+import Dashboard from '../../pages/Dashboard'
 
 export interface Router {
   readonly path: string
@@ -14,6 +15,7 @@ export enum RouterNames {
   LOGIN = '/login',
   PROFILE = '/profile',
   CREATE = '/create',
+  ADMIN = '/admin',
 }
 
 export const publicRoutes: Router[] = [
@@ -24,4 +26,8 @@ export const publicRoutes: Router[] = [
 
 export const privateRoutes: Router[] = [
   { path: RouterNames.PROFILE, element: <Profile /> },
+]
+
+export const adminRoutes: Router[] = [
+  { path: RouterNames.ADMIN, element: <Dashboard /> },
 ]
