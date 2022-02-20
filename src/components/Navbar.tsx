@@ -1,37 +1,53 @@
-import { Box, Container, Link, Stack } from '@chakra-ui/react'
+import { Box, Button, Container, Stack } from '@chakra-ui/react'
 import React, { FC } from 'react'
-import { useColorModeValue } from '@chakra-ui/react'
-import RouterLink from './common/RouterLink'
+import { Link } from 'react-router-dom'
+import { useAppSelector } from '../lib/hooks/redux'
+import Logo from './common/Logo'
+import ToggleColorMode from './common/ToggleColorMode'
 
 const Navbar: FC = () => {
-  return (
-    <Box
-      py={2}
-      borderBottom={'1px'}
-      borderColor={useColorModeValue('gray.200', 'gray.700')}
-    >
-      <Container maxW={'container.xl'}>
-        <Stack
-          alignItems={'center'}
-          justify={'space-between'}
-          direction={['column', 'row']}
-        >
-          <Box>Logo</Box>
-
-          <Box>
-            <RouterLink to={'/create'}>Create</RouterLink>
-          </Box>
-
-          <Box>
-            <Stack direction={['column', 'row']} alignItems={'center'}>
-              <Box>Toggle</Box>
-              <Box>Profile | Login</Box>
-            </Stack>
-          </Box>
-        </Stack>
-      </Container>
-    </Box>
-  )
+    const { role, isAuth } = useAppSelector((state) => state.userReducer)
+    return (
+        <Box py={3}>
+            <Container maxW={'container.xl'}>
+                <Stack justify={'space-between'} direction={['column', 'row']}>
+                    <Link to={'/'}>
+                        <Logo />
+                    </Link>
+                    <Stack direction={['column', 'row']}>
+                        <Link to={'/create'}>
+                            <Button variant={'text'}>Create</Button>
+                        </Link>
+                        {role === 'admin' && (
+                            <Link to={'/admin'}>
+                                <Button variant={'text'}>Admin panel</Button>
+                            </Link>
+                        )}
+                        {isAuth && (
+                            <Link to={'/collection'}>
+                                <Button variant={'text'}>Collection</Button>
+                            </Link>
+                        )}
+                    </Stack>
+                    <Stack
+                        direction={['column', 'row']}
+                        spacing={5}
+                        alignItems={'center'}>
+                        {!isAuth ? (
+                            <Link to={'/login'}>
+                                <Button>Login</Button>
+                            </Link>
+                        ) : (
+                            <Link to={'/profile'}>
+                                <Button>Profile</Button>
+                            </Link>
+                        )}
+                        <ToggleColorMode />
+                    </Stack>
+                </Stack>
+            </Container>
+        </Box>
+    )
 }
 
 export default Navbar
