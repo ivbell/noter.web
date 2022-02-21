@@ -7,6 +7,7 @@ import Dashboard from '../../pages/Dashboard'
 import Registration from '../../pages/Registration'
 import NoteCollection from '../../pages/NoteCollection'
 import Note from '../../pages/Note'
+import ClassAdminPage from '../../pages/admin/ClassAdminPage'
 
 export interface Router {
     readonly path: string
@@ -22,6 +23,7 @@ export enum RouterNames {
     ADMIN = '/admin',
     COLLECTION = '/collection',
     NOTE = '/note/:id',
+    CLASS = '/admin/class/:id',
 }
 
 export const publicRoutes: Router[] = [
@@ -39,4 +41,5 @@ export const privateRoutes: Router[] = [
 
 export const adminRoutes: Router[] = [
     { path: RouterNames.ADMIN, element: <Dashboard /> },
+    { path: RouterNames.CLASS, element: <ClassAdminPage /> },
 ]
