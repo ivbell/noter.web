@@ -4,7 +4,7 @@ import { Classes } from '../type'
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data)
 
-export function useOneClass(id: string) {
+export function useOneClass(id: string | undefined) {
     const { data, error } = useSWR<Classes>(
         `${import.meta.env.VITE_SERVER}/classes/${id}`,
         fetcher

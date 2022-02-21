@@ -1,32 +1,19 @@
 import {
     Avatar,
-    Box,
-    Button,
-    Heading,
-    Input,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
-    Stack,
+    Box, Heading, Stack,
     Text,
-    useColorModeValue,
-    useDisclosure,
-    Wrap,
-    WrapItem,
+    useColorModeValue, Wrap,
+    WrapItem
 } from '@chakra-ui/react'
 import React, { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import AddSpec from '../../components/admin/spec/AddSpec'
 import AdminLayout from '../../components/layouts/AdminLayouts'
-import { useOneClass } from '../../lib/data/useOneclass'
+import { useOneClass } from '../../lib/data/useOneClass'
 
 const ClassAdminPage: FC = () => {
     const { id } = useParams()
-    const { oneClass } = useOneClass()
+    const { oneClass } = useOneClass(id)
 
     return (
         <AdminLayout>
