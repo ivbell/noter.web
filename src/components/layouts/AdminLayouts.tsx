@@ -11,7 +11,13 @@ import AdminClassContainer from '../admin/class/AdminClassContainer'
 import AdminUserContainer from '../admin/user/AdminUserContainer'
 import MainLayouts from './MainLayouts'
 
-const AdminLayout: FC = ({ children }) => {
+type Props = {
+  defaultIndexAccordion: number
+}
+
+const AdminLayout: FC<Props> = (props) => {
+  const { children, defaultIndexAccordion } =  props
+
     return (
         <MainLayouts>
             <Center py={2}>
@@ -20,7 +26,7 @@ const AdminLayout: FC = ({ children }) => {
             <Wrap>
                 <WrapItem>
                     <Box w={320}>
-                        <Accordion allowToggle>
+                        <Accordion defaultIndex={[defaultIndexAccordion]} allowToggle>
                             <AdminClassContainer />
                             <AdminUserContainer />
                         </Accordion>

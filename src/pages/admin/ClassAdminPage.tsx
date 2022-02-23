@@ -1,31 +1,30 @@
-import { Box, Heading, Skeleton, Stack } from '@chakra-ui/react'
-import React, { FC } from 'react'
-import { useParams } from 'react-router-dom'
+import {Box, Heading, Skeleton, Stack} from '@chakra-ui/react'
+import React, {FC} from 'react'
+import {useParams} from 'react-router-dom'
 import AbilityContainer from '../../components/admin/ability/AbilityContainer'
-import AddAbility from '../../components/admin/ability/AddAbility'
 import AddSpec from '../../components/admin/spec/AddSpec'
 import SpecItem from '../../components/admin/spec/SpecItem'
 import AdminLayout from '../../components/layouts/AdminLayouts'
-import { useOneClass } from '../../lib/data/useOneClass'
-import { useSpeClass } from '../../lib/data/useSpecClass'
+import {useOneClass} from '../../lib/data/useOneClass'
+import {useSpeClass} from '../../lib/data/useSpecClass'
 
 const ClassAdminPage: FC = () => {
-  const { id } = useParams()
-  const { oneClass } = useOneClass(id)
-  const { classSpec, isClassSpecLoading } = useSpeClass(id)
+  const {id} = useParams()
+  const {oneClass} = useOneClass(id)
+  const {classSpec, isClassSpecLoading} = useSpeClass(id)
 
   const specList = classSpec?.map((spec) => (
-    <SpecItem key={spec._id} icon={spec.icon} name={spec.name} />
+    <SpecItem key={spec._id} id={spec._id} icon={spec.icon} name={spec.name}/>
   ))
 
   return (
-    <AdminLayout>
+    <AdminLayout defaultIndexAccordion={0}>
       <Box w={320}>
         {isClassSpecLoading ? (
           <Stack>
-            <Skeleton height='20px' />
-            <Skeleton height='20px' />
-            <Skeleton height='20px' />
+            <Skeleton height="20px"/>
+            <Skeleton height="20px"/>
+            <Skeleton height="20px"/>
           </Stack>
         ) : (
           <>
@@ -33,11 +32,11 @@ const ClassAdminPage: FC = () => {
               Specializations {oneClass?.name}
             </Heading>
             <Stack>{specList}</Stack>
-            <AddSpec class_id={id} />
+            <AddSpec class_id={id}/>
           </>
         )}
       </Box>
-      <AbilityContainer class_id={id} />
+      <AbilityContainer class_id={id}/>
     </AdminLayout>
   )
 }

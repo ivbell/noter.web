@@ -1,16 +1,16 @@
-import { ChakraProvider } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import {ChakraProvider} from '@chakra-ui/react'
+import React, {useEffect} from 'react'
+import {BrowserRouter} from 'react-router-dom'
 import AppRouter from './components/AppRouter'
-import { useAppDispatch } from './lib/hooks/redux'
+import {useAppDispatch} from './lib/hooks/redux'
 import useTokenCookie from './lib/hooks/userTokenCookie'
-import { userAuthToken } from './lib/store/action/userAction'
+import {userAuthToken} from './lib/store/action/userAction'
 import Fonts from './lib/theme/fonts'
 import theme from './lib/theme/theme'
 
 
 function App() {
-    const { token } = useTokenCookie()
+    const {token} = useTokenCookie()
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -20,12 +20,12 @@ function App() {
     }, [])
 
     return (
-            <ChakraProvider theme={theme}>
-                <BrowserRouter>
-                    <AppRouter />
-                </BrowserRouter>
-                <Fonts />
-            </ChakraProvider>
+        <ChakraProvider theme={theme}>
+            <BrowserRouter>
+                <AppRouter/>
+            </BrowserRouter>
+            <Fonts/>
+        </ChakraProvider>
     )
 }
 
