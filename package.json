@@ -14,6 +14,7 @@
     "@reduxjs/toolkit": "^1.7.2",
     "@types/react-color": "^3.0.6",
     "@types/react-redux": "^7.1.22",
+    "@types/styled-components": "^5.1.23",
     "axios": "^0.26.0",
     "framer-motion": "^6.2.6",
     "react": "^17.0.2",
@@ -22,6 +23,7 @@
     "react-icons": "^4.3.1",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
+    "styled-components": "^5.3.3",
     "swr": "^1.2.1",
     "universal-cookie": "^4.0.4"
   },
