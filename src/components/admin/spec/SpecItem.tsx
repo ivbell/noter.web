@@ -7,7 +7,7 @@ import {
 import React, {FC, useState} from 'react'
 import {AiOutlineEllipsis} from 'react-icons/ai'
 import axios from 'axios'
-import useTokenCookie from '../../../lib/hooks/userTokenCookie'
+import useUserTokenCookie from '../../../lib/hooks/useUserTokenCookie'
 
 type Props = {
   icon: string
@@ -54,7 +54,7 @@ const SpecItem: FC<Props> = (props) => {
 
     if (validate) {
       const url = `${import.meta.env.VITE_SERVER}/spec/${id}`
-      const {token} = useTokenCookie()
+      const {token} = useUserTokenCookie()
       axios({
         method: 'patch',
         url: url,

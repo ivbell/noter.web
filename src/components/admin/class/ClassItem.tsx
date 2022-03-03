@@ -21,7 +21,7 @@ import React, { FC, useState } from 'react'
 import { ColorResult, SliderPicker } from 'react-color'
 import { Link } from 'react-router-dom'
 import { useSWRConfig } from 'swr'
-import useTokenCookie from '../../../lib/hooks/userTokenCookie'
+import useUserTokenCookie from '../../../lib/hooks/useUserTokenCookie'
 
 interface Props {
   name: string
@@ -57,7 +57,7 @@ const ClassItem: FC<Props> = (props) => {
   }
 
   const saveClass = () => {
-    const { token } = useTokenCookie()
+    const { token } = useUserTokenCookie()
     const url = `${import.meta.env.VITE_SERVER}/classes`
     axios({
       method: 'patch',

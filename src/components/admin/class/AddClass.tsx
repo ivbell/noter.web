@@ -20,7 +20,7 @@ import axios, { AxiosError } from 'axios'
 import React, { useState } from 'react'
 import { ColorResult, SliderPicker } from 'react-color'
 import { useSWRConfig } from 'swr'
-import useTokenCookie from '../../../lib/hooks/userTokenCookie'
+import useUserTokenCookie from '../../../lib/hooks/useUserTokenCookie'
 
 interface NewClass {
     name: string
@@ -50,7 +50,7 @@ const AddClass = () => {
     const postNewClass = () => {
         const { name, color, icon } = newClass
         if (name.length > 0 && icon.length > 0) {
-            const { token } = useTokenCookie()
+            const { token } = useUserTokenCookie()
             const url = `${import.meta.env.VITE_SERVER}/classes`
             axios({
                 method: 'post',

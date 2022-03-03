@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import React, {FC, useState} from 'react'
 import axios from 'axios'
-import useTokenCookie from '../../../lib/hooks/userTokenCookie'
+import useUserTokenCookie from '../../../lib/hooks/useUserTokenCookie'
 import {useParams} from 'react-router-dom'
 
 type Ability = {
@@ -55,7 +55,7 @@ const AddAbility: FC = () => {
   }
 
   function postAbility(data: PostAbility) {
-    const {token} = useTokenCookie()
+    const {token} = useUserTokenCookie()
 
     axios({
       method: 'post',

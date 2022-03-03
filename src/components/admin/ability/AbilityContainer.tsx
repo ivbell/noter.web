@@ -1,4 +1,4 @@
-import { Box, Heading, Stack } from '@chakra-ui/react'
+import { Box, Heading, Skeleton, Stack } from '@chakra-ui/react'
 import React, { FC } from 'react'
 import AddAbility from './AddAbility'
 import { useClassAbility } from '../../../lib/data/useClassAbility'
@@ -17,9 +17,13 @@ const AbilityContainer: FC<Props> = (props) => {
       name={ability.name}
       id={ability._id}
       icon={ability.icon}
-      wowhead_link={ability.wowhead_id}
+      wowhead_link={ability.link_wowhead}
     />
   ))
+  if (abilityClassLoading) {
+    return <Skeleton w={'full'} h={'20px'}></Skeleton>
+  }
+
   return (
     <Box ml={2} w={320}>
       <Heading mb={1} textAlign={'center'} size={'md'}>
@@ -27,7 +31,6 @@ const AbilityContainer: FC<Props> = (props) => {
       </Heading>
       <Stack spacing={2}>
         {abilityList}
-
         <AddAbility />
       </Stack>
     </Box>

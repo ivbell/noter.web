@@ -18,7 +18,7 @@ import {
 import axios from 'axios'
 import React, { FC, useState } from 'react'
 import { useSWRConfig } from 'swr'
-import useTokenCookie from '../../../lib/hooks/userTokenCookie'
+import useUserTokenCookie from '../../../lib/hooks/useUserTokenCookie'
 
 type Props = {
   class_id?: string
@@ -45,7 +45,7 @@ const AddSpec: FC<Props> = (props) => {
   }
 
   const createSpec = () => {
-    const { token } = useTokenCookie()
+    const { token } = useUserTokenCookie()
     if (newSpec.name.length > 0 && newSpec.icon.length > 0) {
       axios({
         method: 'post',
