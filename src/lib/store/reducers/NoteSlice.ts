@@ -41,8 +41,8 @@ export const noteSlice = createSlice({
   name: 'note',
   initialState,
   reducers: {
-    nameChange(state, action: PayloadAction<string>) {
-      state.name = action.payload
+    nameChange(state, { payload }: PayloadAction<string>) {
+      state.name = payload
     },
     addNewPlayer(state, action: PayloadAction<PlayerState>) {
       state.players.push(action.payload)
@@ -78,5 +78,6 @@ export const noteSlice = createSlice({
     },
   },
 })
+
 
 export default noteSlice.reducer
