@@ -7,7 +7,7 @@ import BossAbilityItem from './BossAbilityItem'
 
 const AddBossAbilityField: FC = () => {
   const dispatch = useAppDispatch()
-  const { boss_ability } = useAppSelector((state) => state.noteReducer)
+  const { boss_ability } = useAppSelector((state) => state.note)
   const toast = useToast()
 
   const initialAbilityState: BossAbilityState = {

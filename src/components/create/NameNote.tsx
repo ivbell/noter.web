@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../lib/hooks/redux'
 import { noteNameChange } from '../../lib/store/action/noteAction'
 
 const NameNote: FC = () => {
-  const { name } = useAppSelector((state) => state.noteReducer)
+  const { name } = useAppSelector((state) => state.note)
   const [noteName, setNoteName] = useState<string>(name)
   const dispatch = useAppDispatch()
 

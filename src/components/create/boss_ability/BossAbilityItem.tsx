@@ -12,7 +12,7 @@ type Props = {
 }
 
 const BossAbilityItem: FC<Props> = (props) => {
-  const { boss_ability } = useAppSelector((state) => state.noteReducer)
+  const { boss_ability } = useAppSelector((state) => state.note)
   const dispatch = useAppDispatch()
   const toast = useToast()
 

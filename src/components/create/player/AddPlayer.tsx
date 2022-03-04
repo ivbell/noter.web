@@ -20,7 +20,7 @@ import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 
 const AddPlayer: FC = () => {
   const dispatch = useAppDispatch()
-  const { players } = useAppSelector((state) => state.noteReducer)
+  const { players } = useAppSelector((state) => state.note)
   const toast = useToast()
 
   const [edit, setEdit] = useState<boolean>(false)

@@ -4,7 +4,7 @@ import { useAppSelector } from '../../../lib/hooks/redux'
 import PlayerItem from './PlayerItem'
 
 const PlayerList: FC = () => {
-  const { players } = useAppSelector((state) => state.noteReducer)
+  const { players } = useAppSelector((state) => state.note)
 
   const playersList = players.map((p) => {
     return (

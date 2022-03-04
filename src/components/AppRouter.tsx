@@ -4,7 +4,7 @@ import { useAppSelector } from '../lib/hooks/redux'
 import { adminRoutes, privateRoutes, publicRoutes } from '../lib/router/router'
 
 const AppRouter: FC = () => {
-    const { isAuth, role } = useAppSelector((state) => state.userReducer)
+    const { isAuth, role } = useAppSelector((state) => state.user)
 
     if (!isAuth) {
         return (

@@ -5,7 +5,7 @@ import AddBossAbility from './AddBossAbility'
 import BossAbilityItem from './BossAbilityItem'
 
 const BossAbilityContainer: FC = () => {
-  const { boss_ability } = useAppSelector((state) => state.noteReducer)
+  const { boss_ability } = useAppSelector((state) => state.note)
   const bossAbilityList = boss_ability.map((ability, index) => (
     <WrapItem key={index}>
       <BossAbilityItem name={ability.name} id={ability.id} />
