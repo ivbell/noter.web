@@ -13,6 +13,7 @@ const Create: FC = () => {
       <Wrap justify={'space-between'}>
         <WrapItem minW={320}>
           <Box>Table</Box>
+          <a href="#" data-wowhead="item=2828">hai</a>
         </WrapItem>
         <WrapItem w={'320px'}>
           <Stack>

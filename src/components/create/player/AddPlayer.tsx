@@ -85,15 +85,8 @@ const AddPlayer: FC = () => {
     <Box py={2}>
       <Stack direction={['column', 'row']} align={'center'}>
         <Heading size={'sm'}>Add new player:</Heading>
-        <Button
-          colorScheme={!edit ? 'lime' : 'red'}
-          variant={'ghost'}
-          onClick={playerAddToggle}>
-          {!edit ? (
-            <AiFillPlusCircle fontSize={20} />
-          ) : (
-            <AiFillMinusCircle fontSize={20} />
-          )}
+        <Button colorScheme={!edit ? 'lime' : 'red'} variant={'ghost'} onClick={playerAddToggle}>
+          {!edit ? <AiFillPlusCircle fontSize={20} /> : <AiFillMinusCircle fontSize={20} />}
         </Button>
       </Stack>
       {edit && (
@@ -141,6 +134,7 @@ const AddPlayer: FC = () => {
           {player.name.length > 0 && (
             <Box py={2}>
               <PlayerItem
+                delete={true}
                 name={player.name}
                 class_id={player.class_id}
                 spec_id={player.spec_id}
