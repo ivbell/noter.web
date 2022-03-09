@@ -2,11 +2,12 @@ import { Box, Button, Container, Stack } from '@chakra-ui/react'
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { useAppSelector } from '../lib/hooks/redux'
+import { userSelector } from '../lib/store/reducers/UserSlice'
 import Logo from './common/Logo'
 import ToggleColorMode from './common/ToggleColorMode'
 
 const Navbar: FC = () => {
-  const { role, isAuth } = useAppSelector((state) => state.user)
+  const { role, isAuth } = useAppSelector(userSelector)
   return (
     <Box py={3}>
       <Container maxW={'container.xl'}>

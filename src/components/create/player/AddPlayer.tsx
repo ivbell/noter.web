@@ -13,14 +13,14 @@ import {
 import PlayerItem from './PlayerItem'
 import { useClass } from '../../../lib/data/useClass'
 import { useSpeClass } from '../../../lib/data/useSpecClass'
-import { PlayerState } from '../../../lib/store/reducers/NoteSlice'
+import { noteSelector, PlayerState } from '../../../lib/store/reducers/NoteSlice'
 import { useAppDispatch, useAppSelector } from '../../../lib/hooks/redux'
 import { notePlayerAdded } from '../../../lib/store/action/noteAction'
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 
 const AddPlayer: FC = () => {
   const dispatch = useAppDispatch()
-  const { players } = useAppSelector((state) => state.note)
+  const { players } = useAppSelector(noteSelector)
   const toast = useToast()
 
   const [edit, setEdit] = useState<boolean>(false)

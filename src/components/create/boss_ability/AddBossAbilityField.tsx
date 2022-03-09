@@ -2,12 +2,12 @@ import { Box, Button, FormControl, FormLabel, Input, Stack, useToast } from '@ch
 import React, { FC, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../lib/hooks/redux'
 import { noteBossAbilityAdded } from '../../../lib/store/action/noteAction'
-import { BossAbilityState } from '../../../lib/store/reducers/NoteSlice'
+import { BossAbilityState, noteSelector } from '../../../lib/store/reducers/NoteSlice'
 import BossAbilityItem from './BossAbilityItem'
 
 const AddBossAbilityField: FC = () => {
   const dispatch = useAppDispatch()
-  const { boss_ability } = useAppSelector((state) => state.note)
+  const { boss_ability } = useAppSelector(noteSelector)
   const toast = useToast()
 
   const initialAbilityState: BossAbilityState = {

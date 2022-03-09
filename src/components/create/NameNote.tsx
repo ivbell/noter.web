@@ -2,9 +2,10 @@ import React, { FC, useState } from 'react'
 import { Box, Button, Input, Stack, useColorModeValue } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from '../../lib/hooks/redux'
 import { noteNameChange } from '../../lib/store/action/noteAction'
+import { noteSelector } from '../../lib/store/reducers/NoteSlice'
 
 const NameNote: FC = () => {
-  const { name } = useAppSelector((state) => state.note)
+  const { name } = useAppSelector(noteSelector)
   const [noteName, setNoteName] = useState<string>(name)
   const dispatch = useAppDispatch()
 

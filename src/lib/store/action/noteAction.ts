@@ -1,5 +1,12 @@
-import { AppDispatch } from ".."
-import { BossAbilityState, noteSlice, PlayerState, UpdatePlayer } from "../reducers/NoteSlice"
+import { AppDispatch } from '..'
+import {
+  BossAbilityState,
+  noteSlice,
+  PlayerState,
+  TableItem,
+  TableItemCreate,
+  UpdatePlayer,
+} from '../reducers/NoteSlice'
 
 export const noteNameChange = (noteName: string) => (dispatch: AppDispatch) => {
   dispatch(noteSlice.actions.nameChange(noteName))
@@ -23,4 +30,8 @@ export const noteBossAbilityAdded = (ability: BossAbilityState) => (dispatch: Ap
 
 export const noteBossAbilityDelete = (name: string) => (dispatch: AppDispatch) => {
   dispatch(noteSlice.actions.deleteBossAbility(name))
+}
+
+export const noteTableAdd = (tableItem: TableItemCreate) => (dispatch: AppDispatch) => {
+  dispatch(noteSlice.actions.tableLineAdd(tableItem))
 }

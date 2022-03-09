@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '..'
 
 export interface AbilityState {
   player_name: string
@@ -17,10 +18,31 @@ export interface BossAbilityState {
   color?: string
 }
 
+export interface TimeTable {
+  date: string
+  phase?: string
+}
+
+export interface PlayerTable {
+  player: PlayerState
+  ability: string
+}
+export interface TableItem {
+  id: number
+  time?: TimeTable
+  boss_ability?: string
+  title?: string
+  comment?: string
+  players?: PlayerTable[]
+}
+
+export type TableItemCreate = Omit<TableItem, 'id'>
+
 export interface NoteState {
   name: string
   players: PlayerState[]
   boss_ability: BossAbilityState[]
+  table: TableItem[]
 }
 type OldName = {
   old_name: string
@@ -35,6 +57,7 @@ const initialState: NoteState = {
     { name: 'Ivan', class_id: '620f85133509f3fa588f28a2', spec_id: '' },
   ],
   boss_ability: [{ name: 'Chain', id: '347269' }],
+  table: [],
 }
 
 export const noteSlice = createSlice({
@@ -76,8 +99,13 @@ export const noteSlice = createSlice({
         state.boss_ability.splice(index, 1)
       }
     },
+    tableLineAdd(state, { payload }: PayloadAction<TableItemCreate>) {
+      const index = state.table.length + 1
+      state.table.push({ ...payload, id: index })
+    },
   },
 })
 
+export const noteSelector = (state: RootState) => state.note
 
 export default noteSlice.reducer

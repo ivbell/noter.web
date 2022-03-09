@@ -1,10 +1,11 @@
 import { Wrap, WrapItem } from '@chakra-ui/react'
 import React, { FC } from 'react'
 import { useAppSelector } from '../../../lib/hooks/redux'
+import { noteSelector } from '../../../lib/store/reducers/NoteSlice'
 import PlayerItem from './PlayerItem'
 
 const PlayerList: FC = () => {
-  const { players } = useAppSelector((state) => state.note)
+  const { players } = useAppSelector(noteSelector)
 
   const playersList = players.map((p) => {
     return (

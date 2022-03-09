@@ -6,6 +6,7 @@ import Cookie from 'universal-cookie'
 import MainLayouts from '../components/layouts/MainLayouts'
 import { useAppDispatch, useAppSelector } from '../lib/hooks/redux'
 import { userAuthToken } from '../lib/store/action/userAction'
+import { userSelector } from '../lib/store/reducers/UserSlice'
 
 interface UserState {
   readonly login: string
@@ -23,7 +24,7 @@ const Login: FC = () => {
   const cookie = new Cookie()
   const dispatch = useAppDispatch()
 
-  const { isAuth } = useAppSelector((state) => state.user)
+  const { isAuth } = useAppSelector(userSelector)
 
   useEffect(() => {
     if (isAuth) {

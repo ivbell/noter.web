@@ -1,8 +1,9 @@
-import { Box, Heading, Stack, Wrap, WrapItem } from '@chakra-ui/react'
+import { Box, Heading, Stack } from '@chakra-ui/react'
 import React, { FC } from 'react'
 import BossAbilityContainer from '../components/create/boss_ability/BossAbilityContainer'
 import NameNote from '../components/create/NameNote'
 import CreatePlayerContainer from '../components/create/player/CreatePlayerContainer'
+import TableContainer from '../components/create/table/TableContainer'
 import MainLayouts from '../components/layouts/MainLayouts'
 
 const Create: FC = () => {
@@ -10,18 +11,17 @@ const Create: FC = () => {
     <MainLayouts>
       <Heading size={'md'}>Create new note</Heading>
       <NameNote />
-      <Wrap justify={'space-between'}>
-        <WrapItem minW={320}>
-          <Box>Table</Box>
-          <a href="#" data-wowhead="item=2828">hai</a>
-        </WrapItem>
-        <WrapItem w={'320px'}>
+      <Stack justify={'space-between'} direction={['column', 'row']}>
+        <Box w={'full'} minW={320}>
+          <TableContainer />
+        </Box>
+        <Box w={'320px'}>
           <Stack>
             <CreatePlayerContainer />
             <BossAbilityContainer />
           </Stack>
-        </WrapItem>
-      </Wrap>
+        </Box>
+      </Stack>
     </MainLayouts>
   )
 }
