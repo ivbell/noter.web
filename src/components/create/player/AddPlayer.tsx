@@ -115,7 +115,7 @@ const AddPlayer: FC = () => {
                   {classListOption}
                 </Select>
               </FormControl>
-              {player.class_id.length > 0 && (
+              {player.class_id && (
                 <FormControl>
                   <FormLabel htmlFor={'player-spec'}>Spec:</FormLabel>
                   <Select
