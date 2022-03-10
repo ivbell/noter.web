@@ -1,13 +1,14 @@
 import React, { FC } from 'react'
-import { useSelector } from 'react-redux'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { adminRoutes, privateRoutes, publicRoutes } from '../lib/router/router'
-import { userSelector } from '../lib/store/reducers/UserSlice'
 
-const AppRouter: FC = () => {
-  const { isAuth, role } = useSelector(userSelector)
+type Props = {
+  isAuth: boolean
+  role: string
+}
 
-  if (isAuth) {
+const AppRouter: FC<Props> = (props) => {
+  if (!props.isAuth) {
     return (
       <Routes>
         {publicRoutes.map((r) => (
@@ -18,7 +19,7 @@ const AppRouter: FC = () => {
     )
   }
 
-  switch (role) {
+  switch (props.role) {
     case 'admin':
       return (
         <Routes>

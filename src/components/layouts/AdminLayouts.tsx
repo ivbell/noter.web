@@ -1,12 +1,5 @@
-import {
-  Accordion,
-  Box,
-  Center,
-  Heading,
-  Wrap,
-  WrapItem,
-} from '@chakra-ui/react'
-import React, {FC} from 'react'
+import { Accordion, Box, Center, Heading, Wrap, WrapItem } from '@chakra-ui/react'
+import React, { FC } from 'react'
 import AdminClassContainer from '../admin/class/AdminClassContainer'
 import AdminUserContainer from '../admin/user/AdminUserContainer'
 import MainLayouts from './MainLayouts'
@@ -16,7 +9,7 @@ type Props = {
 }
 
 const AdminLayout: FC<Props> = (props) => {
-  const {children, defaultIndexAccordion} = props
+  const { children, defaultIndexAccordion } = props
 
   const defaultIndex = defaultIndexAccordion || 0
   return (
@@ -28,8 +21,8 @@ const AdminLayout: FC<Props> = (props) => {
         <WrapItem>
           <Box w={320}>
             <Accordion defaultIndex={defaultIndex} allowToggle>
-              <AdminClassContainer/>
-              <AdminUserContainer/>
+              <AdminClassContainer />
+              <AdminUserContainer />
             </Accordion>
           </Box>
         </WrapItem>

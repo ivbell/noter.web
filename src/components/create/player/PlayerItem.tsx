@@ -14,9 +14,12 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Portal,
+  Select,
   Stack,
   Text,
   useColorModeValue,
+  useDisclosure,
+  useToast
 } from '@chakra-ui/react'
 import React, { FC, useState } from 'react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
@@ -34,6 +37,9 @@ type Props = {
 }
 
 const PlayerItem: FC<Props> = (props) => {
+  const toast = useToast()
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const name = props.name.length > 29 ? props.name.substr(0, 26) + '...' : props.name
   const initialPlayerState: PlayerState = {
     name: name,
@@ -57,12 +63,23 @@ const PlayerItem: FC<Props> = (props) => {
     ? oneSpec?.icon
     : oneClass?.icon
 
-  const playerHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const playerHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setPlayer({ ...player, [e.target.name]: e.target.value })
   }
 
+  const playerChange: boolean =
+    player.name === props.name &&
+    player.class_id === props.class_id &&
+    player.spec_id === props.spec_id
+
   const savePlayer = () => {
-    console.log(player)
+    if (playerChange) {
+      toast({
+        status: 'error',
+        title: 'Error',
+        description: '',
+      })
+    }
   }
 
   return (
@@ -110,12 +127,21 @@ const PlayerItem: FC<Props> = (props) => {
                   <FormLabel htmlFor={'name'}>Player name:</FormLabel>
                   <Input id={'name'} name={'name'} value={player.name} onChange={playerHandler} />
                 </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor={'class_id'}>Player name:</FormLabel>
+                  <Select id={'class_id'} value={player.class_id} onChange={playerHandler}></Select>
+                </FormControl>
               </Stack>
             </PopoverBody>
             <PopoverFooter>
               <Stack direction={['column', 'row']} justify={'end'}>
-                <Button variant={'ghost'}>Save</Button>
-                <Button onClick={() => setPlayer(initialPlayerState)} colorScheme={'blue'}>
+                <Button disabled={playerChange} onClick={savePlayer} variant={'ghost'}>
+                  Save
+                </Button>
+                <Button
+                  disabled={playerChange}
+                  onClick={() => setPlayer(initialPlayerState)}
+                  colorScheme={'blue'}>
                   Reset
                 </Button>
               </Stack>

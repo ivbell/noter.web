@@ -2,10 +2,8 @@ import { AppDispatch } from '..'
 import {
   BossAbilityState,
   noteSlice,
-  PlayerState,
-  TableItem,
-  TableItemCreate,
-  UpdatePlayer,
+  PlayerState, TableItemCreate,
+  UpdatePlayer
 } from '../reducers/NoteSlice'
 
 export const noteNameChange = (noteName: string) => (dispatch: AppDispatch) => {
