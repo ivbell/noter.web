@@ -1,55 +1,45 @@
 import {
-    Box,
-    Button,
-    Heading,
-    Input,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
-    Stack,
-    useDisclosure,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Heading,
+  Stack,
+  Skeleton,
 } from '@chakra-ui/react'
 import React, { FC } from 'react'
+import { useClass } from '../../../lib/data/useClass'
+import AddClass from './AddClass'
 import ClassItem from './ClassItem'
 
 const AdminClassContainer: FC = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    return (
-        <>
-            <Box w={320}>
-                <Heading size={'md'}>Class</Heading>
-                <Stack>
-                    <ClassItem name='Death knight' id='123' />
-                </Stack>
-            </Box>
-            <Box>
-                <Button variant='ghost' onClick={onOpen}>
-                    Add class
-                </Button>
-                <Modal isOpen={isOpen} onClose={onClose}>
-                    <ModalOverlay />
-                    <ModalContent>
-                        <ModalHeader>Modal Title</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody>
-                            <Input placeholder='Class name' />
-                        </ModalBody>
+  const { classes, classLoading, isClassError } = useClass()
 
-                        <ModalFooter>
-                            <Button colorScheme='blue' mr={3} onClick={onClose}>
-                                Close
-                            </Button>
-                            <Button variant='ghost'>Save</Button>
-                        </ModalFooter>
-                    </ModalContent>
-                </Modal>
-            </Box>
-        </>
-    )
+  const classList = classes?.map((c) => (
+    <ClassItem
+      key={c._id}
+      name={c.name}
+      icon={c.icon}
+      id={c._id}
+      color={c.color}
+    />
+  ))
+
+  return (
+    <AccordionItem>
+      <AccordionButton>
+        <Box flex='1' textAlign='left'>
+          <Heading size={'md'}>Class</Heading>
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+      <AccordionPanel pb={4}>
+        <Stack>{classLoading ? <Skeleton height='20px' /> : classList}</Stack>
+        <AddClass />
+      </AccordionPanel>
+    </AccordionItem>
+  )
 }
 
 export default AdminClassContainer
