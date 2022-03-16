@@ -101,7 +101,7 @@ export const noteSlice = createSlice({
     },
     tableLineAdd(state, { payload }: PayloadAction<TableItemCreate>) {
       const index = state.table.length + 1
-      state.table.push({ ...payload, id: index })
+      state.table.push({ id: index, ...payload })
     },
   },
 })
