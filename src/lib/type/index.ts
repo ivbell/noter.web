@@ -1,3 +1,5 @@
+import React from 'react'
+
 export interface Classes {
   readonly color: string
   readonly icon: string
@@ -30,4 +32,9 @@ export interface Ability {
   readonly _id: string
   readonly createdAt: string
   readonly updatedAt: string
+}
+
+export interface InputProps {
+  readonly value: string | number | undefined
+  readonly onChange: React.ReactEventHandler
 }
