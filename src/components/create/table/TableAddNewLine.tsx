@@ -10,7 +10,12 @@ const TableAddNewLine: FC = () => {
   const index = table.length + 1
 
   const addNewLine = () => {
-    dispatch(noteTableAdd({ time: { date: '00:00' }, title: `New line ${index}` }))
+    dispatch(
+      noteTableAdd({
+        time: { date: '00:00' },
+        title: `New line ${index}`,
+      })
+    )
   }
   return (
     <Box py={2}>
