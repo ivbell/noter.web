@@ -5,7 +5,6 @@ import { BsMoon, BsSun } from 'react-icons/bs'
 
 const ToggleColorMode: FC = () => {
   const { toggleColorMode, colorMode } = useColorMode()
-  console.log(colorMode)
   return (
     <AnimatePresence exitBeforeEnter initial={false}>
       <motion.div

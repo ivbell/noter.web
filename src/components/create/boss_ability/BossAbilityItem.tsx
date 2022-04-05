@@ -9,6 +9,7 @@ type Props = {
   name: string
   id?: string
   delete?: boolean
+  string?: boolean
 }
 
 const BossAbilityItem: FC<Props> = (props) => {
@@ -37,15 +38,16 @@ const BossAbilityItem: FC<Props> = (props) => {
     <Box position={'relative'}>
       <Link
         display={'inline-block'}
-        border={'1px'}
+        border={props.string ? 0 : '1px'}
         borderColor={useColorModeValue('gray.100', 'gray.600')}
-        px={3}
-        py={2}
+        px={props.string ? 0 : 3}
+        py={props.string ? 0 : 2}
         data-wowhead={`spell=${props.id}`}
         rounded={4}
         href={'#'}>
         {name}
       </Link>
+
       {!props.delete && (
         <Box
           onClick={deleteBossAbility}

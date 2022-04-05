@@ -14,6 +14,7 @@ const Navbar: FC = () => {
         <Stack justify={'space-between'} direction={['column', 'row']}>
           <Link to={'/'}>
             <Logo />
+            <Box w={'40px'} position={'absolute'} rounded={4} top={4} left={'140px'} bgColor={'red.500'} textAlign={'center'}>beta</Box>
           </Link>
           <Stack direction={['column', 'row']}>
             <Link to={'/create'}>

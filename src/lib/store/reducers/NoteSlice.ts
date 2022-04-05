@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {RootState} from '..'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '..'
 
 export interface AbilityState {
   player_name: string
@@ -18,6 +18,10 @@ export interface BossAbilityState {
   color?: string
 }
 
+export interface BossAbilityTable extends BossAbilityState {
+  stack?: number
+}
+
 export interface TimeTable {
   date: string
   phase?: string
@@ -31,7 +35,7 @@ export interface PlayerTable {
 export interface TableItem {
   id: number
   time?: TimeTable
-  boss_ability?: string
+  boss_ability?: BossAbilityTable | string
   title?: string
   comment?: string
   players?: PlayerTable[]
@@ -62,16 +66,16 @@ export interface AddNewItemInLine {
 const initialState: NoteState = {
   name: '',
   players: [
-    {name: 'Debora', class_id: '6214c7bb6308322b1735c1ce', spec_id: ''},
-    {name: 'Ivan', class_id: '620f85133509f3fa588f28a2', spec_id: ''},
+    { name: 'Debora', class_id: '6214c7bb6308322b1735c1ce', spec_id: '' },
+    { name: 'Ivan', class_id: '620f85133509f3fa588f28a2', spec_id: '' },
   ],
-  boss_ability: [{name: 'Chain', id: '347269'}],
+  boss_ability: [{ name: 'Chain', id: '347269' }],
   table: [
     {
       id: 1,
-      time: {date: '00:00'},
+      time: { date: '00:00' },
       title: `New line 1`,
-      boss_ability: '123',
+      boss_ability: { name: 'Chain', id: '347269' },
     },
   ],
 }
@@ -80,7 +84,7 @@ export const noteSlice = createSlice({
   name: 'note',
   initialState,
   reducers: {
-    nameChange(state, {payload}: PayloadAction<string>) {
+    nameChange(state, { payload }: PayloadAction<string>) {
       state.name = payload
     },
     addNewPlayer(state, action: PayloadAction<PlayerState>) {
@@ -115,16 +119,16 @@ export const noteSlice = createSlice({
         state.boss_ability.splice(index, 1)
       }
     },
-    tableLineAdd(state, {payload}: PayloadAction<TableItemCreate>) {
+    tableLineAdd(state, { payload }: PayloadAction<TableItemCreate>) {
       const index = state.table.length + 1
-      state.table.push({id: index, ...payload})
+      state.table.push({ id: index, ...payload })
     },
-    tableItemAdd(state, {payload}: PayloadAction<AddNewItemInLine>) {
+    tableItemAdd(state, { payload }: PayloadAction<AddNewItemInLine>) {
       state.table.map((tableItem) => {
         if (tableItem.id === payload.id) {
           switch (payload.type) {
             case 'time':
-              tableItem['time'] = {date: `00:0${payload.id}`}
+              tableItem['time'] = { date: `00:0${payload.id}` }
               break
             case 'title':
               tableItem['title'] = 'New title'
@@ -134,7 +138,7 @@ export const noteSlice = createSlice({
               break
             case 'players':
               tableItem['players'] = [
-                {player: {name: '', spec_id: '', class_id: ''}, ability: ''}
+                { player: { name: '', spec_id: '', class_id: '' }, ability: '' },
               ]
               break
             case 'boss_ability':
@@ -144,6 +148,13 @@ export const noteSlice = createSlice({
               console.log(tableItem)
               break
           }
+        }
+      })
+    },
+    tableItemSave(state, { payload }: PayloadAction<TableItem>) {
+      state.table.forEach((item) => {
+        if (item.id === payload.id) {
+          item = payload
         }
       })
     },
