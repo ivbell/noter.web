@@ -18,6 +18,10 @@ export interface BossAbilityState {
   color?: string
 }
 
+export interface BossAbilityTable extends BossAbilityState {
+  stack?: number
+}
+
 export interface TimeTable {
   date: string
   phase?: string
@@ -27,14 +31,17 @@ export interface PlayerTable {
   player: PlayerState
   ability: string
 }
+
 export interface TableItem {
   id: number
   time?: TimeTable
-  boss_ability?: string
+  boss_ability?: BossAbilityTable | string
   title?: string
   comment?: string
   players?: PlayerTable[]
 }
+
+export type TableItemName = 'id' | 'time' | 'boss_ability' | 'title' | 'comment' | 'players'
 
 export type TableItemCreate = Omit<TableItem, 'id'>
 
@@ -44,11 +51,17 @@ export interface NoteState {
   boss_ability: BossAbilityState[]
   table: TableItem[]
 }
+
 type OldName = {
   old_name: string
 }
 
 export type UpdatePlayer = PlayerState & OldName
+
+export interface AddNewItemInLine {
+  type: TableItemName
+  id: number
+}
 
 const initialState: NoteState = {
   name: '',
@@ -57,7 +70,14 @@ const initialState: NoteState = {
     { name: 'Ivan', class_id: '620f85133509f3fa588f28a2', spec_id: '' },
   ],
   boss_ability: [{ name: 'Chain', id: '347269' }],
-  table: [],
+  table: [
+    {
+      id: 1,
+      time: { date: '00:00' },
+      title: `New line 1`,
+      boss_ability: { name: 'Chain', id: '347269' },
+    },
+  ],
 }
 
 export const noteSlice = createSlice({
@@ -101,7 +121,42 @@ export const noteSlice = createSlice({
     },
     tableLineAdd(state, { payload }: PayloadAction<TableItemCreate>) {
       const index = state.table.length + 1
-      state.table.push({ ...payload, id: index })
+      state.table.push({ id: index, ...payload })
+    },
+    tableItemAdd(state, { payload }: PayloadAction<AddNewItemInLine>) {
+      state.table.map((tableItem) => {
+        if (tableItem.id === payload.id) {
+          switch (payload.type) {
+            case 'time':
+              tableItem['time'] = { date: `00:0${payload.id}` }
+              break
+            case 'title':
+              tableItem['title'] = 'New title'
+              break
+            case 'comment':
+              tableItem['comment'] = 'New comment'
+              break
+            case 'players':
+              tableItem['players'] = [
+                { player: { name: '', spec_id: '', class_id: '' }, ability: '' },
+              ]
+              break
+            case 'boss_ability':
+              tableItem['boss_ability'] = 'Boss ability'
+              break
+            default:
+              console.log(tableItem)
+              break
+          }
+        }
+      })
+    },
+    tableItemSave(state, { payload }: PayloadAction<TableItem>) {
+      state.table.forEach((item) => {
+        if (item.id === payload.id) {
+          item = payload
+        }
+      })
     },
   },
 })

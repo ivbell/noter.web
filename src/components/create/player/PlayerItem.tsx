@@ -19,14 +19,16 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
-  useToast
+  useToast,
 } from '@chakra-ui/react'
 import React, { FC, useState } from 'react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { useOneClass } from '../../../lib/data/useOneClass'
 import { useOneSpec } from '../../../lib/data/useOneSpec'
-import { useAppDispatch } from '../../../lib/hooks/redux'
-import { notePlayerDelete } from '../../../lib/store/action/noteAction'
+import { useSpeClass } from '../../../lib/data/useSpecClass'
+import { useAppDispatch, useAppSelector } from '../../../lib/hooks/redux'
+import { notePlayerDelete, notePlayerUpdate } from '../../../lib/store/action/noteAction'
+import { dataSelector } from '../../../lib/store/reducers/DataSlice'
 import { PlayerState } from '../../../lib/store/reducers/NoteSlice'
 
 type Props = {
@@ -38,7 +40,9 @@ type Props = {
 
 const PlayerItem: FC<Props> = (props) => {
   const toast = useToast()
+  const dispatch = useAppDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { classes } = useAppSelector(dataSelector)
 
   const name = props.name.length > 29 ? props.name.substr(0, 26) + '...' : props.name
   const initialPlayerState: PlayerState = {
@@ -47,10 +51,10 @@ const PlayerItem: FC<Props> = (props) => {
     spec_id: props.spec_id,
   }
   const [player, setPlayer] = useState<PlayerState>(initialPlayerState)
+  const { classSpec, isClassSpecLoading } = useSpeClass(player.class_id)
   const { oneClass } = useOneClass(props.delete ? props.class_id : player.class_id)
   const { oneSpec } = useOneSpec(props.delete ? props.spec_id : player.spec_id)
 
-  const dispatch = useAppDispatch()
   const deleteClass = (name_1: string) => {
     dispatch(notePlayerDelete(name_1))
   }
@@ -63,8 +67,16 @@ const PlayerItem: FC<Props> = (props) => {
     ? oneSpec?.icon
     : oneClass?.icon
 
-  const playerHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const playerHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPlayer({ ...player, [e.target.name]: e.target.value })
+  }
+
+  const playerSelectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.name === 'class_id') {
+      setPlayer({ ...player, [e.target.name]: e.target.value, spec_id: '' })
+    } else {
+      setPlayer({ ...player, [e.target.name]: e.target.value })
+    }
   }
 
   const playerChange: boolean =
@@ -79,11 +91,32 @@ const PlayerItem: FC<Props> = (props) => {
         title: 'Error',
         description: '',
       })
+    } else {
+      dispatch(notePlayerUpdate({ ...player, old_name: props.name }))
+      onClose()
+      toast({
+        status: 'success',
+        title: 'Player update',
+        isClosable: true,
+        duration: 5000,
+      })
     }
   }
 
+  const classesList = classes.map((c) => (
+    <option key={c._id} value={c._id}>
+      {c.name}
+    </option>
+  ))
+
+  const specClassPlayerList = classSpec?.map((s) => (
+    <option key={s._id} value={s._id}>
+      {s.name}
+    </option>
+  ))
+
   return (
-    <Popover>
+    <Popover isOpen={isOpen} onClose={onClose} onOpen={onOpen}>
       <PopoverTrigger>
         <Box
           position={'relative'}
@@ -128,8 +161,25 @@ const PlayerItem: FC<Props> = (props) => {
                   <Input id={'name'} name={'name'} value={player.name} onChange={playerHandler} />
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor={'class_id'}>Player name:</FormLabel>
-                  <Select id={'class_id'} value={player.class_id} onChange={playerHandler}></Select>
+                  <FormLabel htmlFor={'class_id'}>Player class:</FormLabel>
+                  <Select
+                    id={'class_id'}
+                    name={'class_id'}
+                    value={player.class_id}
+                    onChange={playerSelectHandler}>
+                    {classesList}
+                  </Select>
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor={'spec_id'}>Player class:</FormLabel>
+                  <Select
+                    id={'spec_id'}
+                    name={'spec_id'}
+                    value={player.spec_id}
+                    placeholder={'Null'}
+                    onChange={playerSelectHandler}>
+                    {specClassPlayerList}
+                  </Select>
                 </FormControl>
               </Stack>
             </PopoverBody>

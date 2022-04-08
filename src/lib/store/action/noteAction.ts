@@ -1,9 +1,12 @@
 import { AppDispatch } from '..'
 import {
+  AddNewItemInLine,
   BossAbilityState,
   noteSlice,
-  PlayerState, TableItemCreate,
-  UpdatePlayer
+  PlayerState,
+  TableItem,
+  TableItemCreate,
+  UpdatePlayer,
 } from '../reducers/NoteSlice'
 
 export const noteNameChange = (noteName: string) => (dispatch: AppDispatch) => {
@@ -32,4 +35,12 @@ export const noteBossAbilityDelete = (name: string) => (dispatch: AppDispatch) =
 
 export const noteTableAdd = (tableItem: TableItemCreate) => (dispatch: AppDispatch) => {
   dispatch(noteSlice.actions.tableLineAdd(tableItem))
+}
+
+export const tableItemAddNewFeature = (tableItem: AddNewItemInLine) => (dispatch: AppDispatch) => {
+  dispatch(noteSlice.actions.tableItemAdd(tableItem))
+}
+
+export const tableItemUpdate = (tableItem: TableItem) => (dispatch: AppDispatch) => {
+  dispatch(noteSlice.actions.tableItemSave(tableItem))
 }

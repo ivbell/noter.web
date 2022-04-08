@@ -17,6 +17,7 @@ import { noteSelector, PlayerState } from '../../../lib/store/reducers/NoteSlice
 import { useAppDispatch, useAppSelector } from '../../../lib/hooks/redux'
 import { notePlayerAdded } from '../../../lib/store/action/noteAction'
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
+import { dataSelector } from '../../../lib/store/reducers/DataSlice'
 
 const AddPlayer: FC = () => {
   const dispatch = useAppDispatch()
@@ -41,7 +42,7 @@ const AddPlayer: FC = () => {
     setPlayer({ ...player, [e.target.name]: e.target.value })
   }
 
-  const { classes, classLoading } = useClass()
+  const { classes } = useAppSelector(dataSelector)
   const classListOption = classes?.map((c) => (
     <option key={c._id} value={c._id}>
       {c.name}
@@ -110,8 +111,7 @@ const AddPlayer: FC = () => {
                   id={'plyer-class'}
                   name={'class_id'}
                   value={player.class_id}
-                  placeholder='Select class'
-                  disabled={classLoading}>
+                  placeholder='Select class'>
                   {classListOption}
                 </Select>
               </FormControl>
